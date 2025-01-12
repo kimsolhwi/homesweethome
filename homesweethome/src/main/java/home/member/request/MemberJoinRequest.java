@@ -14,7 +14,7 @@ public class MemberJoinRequest {
 	private int sex;
 	private String phone;
 	private String address;
-	private String mail;
+	private String email;
 	
 	
 	public String getMid() {
@@ -65,11 +65,11 @@ public class MemberJoinRequest {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getMail() {
-		return mail;
+	public String getEmail() {
+		return email;
 	}
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	

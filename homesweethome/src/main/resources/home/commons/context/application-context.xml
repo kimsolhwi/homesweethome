@@ -9,16 +9,29 @@
 		  class="java.lang.String"
 		  c:value="${savePath.member.picture}" 		
 	/>
-	
 	<!-- summernote.image -->
 	<bean id="summernotePath"
 	      class="java.lang.String"
 	      c:value="${savePath.summernote.image}"
 	/>
 	
-	<bean id="MemberDAO"
+	<!-- repository -->
+	<bean id="mybatisMemberDAO"
 		  class="home.member.dao.MybatisMemberDAOImpl"
 		  c:session-ref="sqlSession"
 	/>
+	<bean id="searchMybatisMemberDAO"
+		  class="home.member.dao.SearchMybatisMemberDAOImpl"
+		  c:session-ref="sqlSession"
+	/>
 	
+	<!-- service -->
+	<bean id="memberService"
+		  class="home.member.service.MemberServiceImpl"
+		  c:searchMemberDAO-ref="searchMybatisMemberDAO"
+	/>
+	<bean id="searchMemberService"
+		  class="home.member.service.SearchMemberServiceImpl"
+		  c:searchMemberDAO-ref="searchMybatisMemberDAO"
+	/>
 </beans>

@@ -5,6 +5,14 @@
 	xmlns:c="http://www.springframework.org/schema/c"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<bean id="myDataSource"
+		  class="home.commons.DataSource.DataSource"
+		  p:driverClassName="oracle.jdbc.driver.OracleDriver"
+		  p:url="jdbc:oracle:thin:@localhose:1521/XE"
+		  p:username="home22"
+		  p:password="home22"
+		  />
+
 	<bean id="dataSource"
 		  class="org.apache.commons.dbcp2.BasicDataSource"
 		  p:driverClassName="oracle.jdbc.OracleDriver"

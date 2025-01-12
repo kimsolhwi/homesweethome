@@ -8,6 +8,8 @@
 		<typeAlias type="java.lang.String" alias="str"/>
 		<typeAlias type="java.lang.Integer" alias="int"/>
 		
-		<typeAlias type="home.member.dto.MemberVO" alias="member"/>	
+		<typeAlias type="home.member.dto.MemberVO" alias="member"/>
+		
+		<typeAlias type="home.commons.request.PageMaker" alias="pageMaker"/>
 	</typeAliases>
 </configuration>

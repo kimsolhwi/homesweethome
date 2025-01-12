@@ -1,5 +1,6 @@
 package home.member.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,18 +10,40 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import home.member.dto.MemberVO;
+import home.member.service.MemberService;
+import home.member.service.SearchMemberService;
+
 @Controller
 @RequestMapping("/member")
 public class MemberController {
+	
+private final SearchMemberService memberService;
+	
+	@Autowired
+	public MemberController(SearchMemberService memberService) {
+		this.memberService = memberService;
+	}
 
     @GetMapping("/join")
     public String join() {
         return "member/join"; // 회원가입 페이지로 이동
     }
-    
+
 	@PostMapping("/join")
 	public String joinGo() {
 		return "member/main";
+	}
+	
+	@GetMapping("/idCheck")
+	@ResponseBody
+	public String idCheck(String mid) throws Exception {
+		String result = "duplicated";
+		MemberVO member = memberService.getMember(mid);
+		if (member == null)
+			result = "";
+
+		return result;
 	}
     
     @GetMapping("/login")

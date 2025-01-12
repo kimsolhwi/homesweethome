@@ -21,14 +21,13 @@
 	href="<%=request.getContextPath()%>/resources/bootstrap/dist/css/adminlte.min.css">
 
 <!-- jQuery -->
-<script
-	src="<%=request.getContextPath()%>/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script
-	src="<%=request.getContextPath()%>/resources/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script
-	src="<%=request.getContextPath()%>/resources/bootstrap/dist/js/adminlte.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/bootstrap/dist/js/adminlte.min.js"></script>
+
+<script src="<%=request.getContextPath()%>/resources/js/check.js"></script>
 
 <style>
 body {
@@ -155,31 +154,33 @@ div.submit button {
 				<span style="color:red;">*</span> 표시는 필수입니다.
 			</p>
 
-			<form method="post" class="login-form">
+			<form name="join" class="login-form" enctype="multipart/form-data">
 				<div class="input-group mb-3">
 					<label><span style="color: red;">*</span> 아　&nbsp;&nbsp;&nbsp;이&nbsp;&nbsp;&nbsp;　디&nbsp;</label>
-					<input type="id" class="form-control radius" placeholder="아이디를 입력하세요">
-					　<div><button type="submit" onclick="check_ID();">중복확인</button></div>
+					<input name="id" type="text" onblur="validation('id');" 
+					onkeyup="this.value=this.value.replace(/[\ㄱ-ㅎㅏ-ㅣ가-힣]/g, &#39;&#39;);" class="form-control radius" placeholder="아이디를 입력하세요">
+					　<div><button type="button" onclick="check_ID();">중복확인</button></div>
 				</div>
 
 				<div class="input-group mb-3">
 					<label><span style="color: red;">*</span> 비 &nbsp;&nbsp;밀 &nbsp;&nbsp;번 &nbsp;&nbsp; 호&nbsp;</label>
-					<input type="password" class="form-control radius" placeholder="비밀번호를 입력하세요">
+					<input name="pwd" type="password" class="form-control radius" placeholder="비밀번호를 입력하세요">
 				</div>
 				
 				<div class="input-group mb-3">
 					<label><span style="color: red;">*</span> 비밀번호 확인</label>&nbsp;&nbsp;&nbsp;
-					<input type="password" class="form-control radius" placeholder="비밀번호를 입력하세요">
+					<input name="pwd" type="password" class="form-control radius" placeholder="비밀번호를 입력하세요">
 				</div>
 
 				<div class="input-group mb-3">
 					<label><span style="color: red;">*</span> 이　　　　름</label>&nbsp;&nbsp;&nbsp;
-					<input type="name" class="form-control radius" placeholder="이름을 입력하세요">
+					<input name="name" type="text" onblur="validation(this.name);"
+					onkeyup="this.value=this.value.trim();"class="form-control radius" placeholder="이름을 입력하세요">
 				</div>
 
 				<div class="input-group mb-3">
 					<label><span style="color: red;">*</span> 생　년　월　일</label>&nbsp;&nbsp;&nbsp;
-					<input type="date" class="input-date">
+					<input name="date" type="date" class="input-date">
 				</div>
 				
 				<div class="login-form">
@@ -187,29 +188,29 @@ div.submit button {
 						　<label>
 							<input type="radio" value="male"> 남자　　　
 							<input type="radio" value="female"> 여자
-						</label>
+						  </label>
 				</div>
 				　
 				<div class="login-form">
 					<label><span style="color: red;">*</span> 이　&nbsp;&nbsp;미　&nbsp;&nbsp;지
 					　<span style="font-size:14px;">※이미지는 jpg형식과 1MB만 가능합니다.</span></label>
 					<br/>
-					&nbsp;&nbsp;<input type="file" name="file">
+					&nbsp;&nbsp;<input name="picture" type="file">
 				</div>
 				　
 				<div class="input-group mb-3">
 					<label><span style="color: red;">*</span> 전 &nbsp;&nbsp;화 &nbsp;&nbsp;번 &nbsp;&nbsp;호 &nbsp;</label>
-					<input type="phone" class="form-control radius" placeholder="010부터 - 포함으로 입력하세요">
+					<input name="phone" type="test" class="form-control radius" placeholder="010부터 - 포함으로 입력하세요">
 				</div>
 
 				<div class="input-group mb-3">
 					<label><span style="color: red;">*</span> 주　　　　소</label>&nbsp;&nbsp;&nbsp;
-					<input type="text" class="form-control radius" placeholder="예) 대전광역시 중구 선화동">
+					<input name="address" type="text" class="form-control radius" placeholder="예) 대전광역시 중구 선화동">
 				</div>
 
 				<div class="input-group mb-3">
 					<label><span style="color: red;">*</span> 이　&nbsp;&nbsp;&nbsp;메&nbsp;&nbsp;&nbsp;　일&nbsp;</label>
-					<input type="email" class="form-control radius" placeholder="예) example@naver.com">
+					<input name="email" type="email" onblur="validation('email');" class="form-control radius" placeholder="예) example@naver.com">
 				</div>
 
 				<div class="login-form interest-container">
@@ -224,7 +225,8 @@ div.submit button {
 				<br />
 				<div class="row">
 					<!-- /.col -->
-					<div><button type="submit" class="btn btn-block" style="padding: 10px; width: 28.7em;">가입하기</button></div>
+					<div><button type="button" class="btn btn-block" style="padding: 10px; width: 28.7em;"
+								 onclick="join_go();">가입하기</button></div>
 				</div> <!-- onclick="join_go();" -->
 			</div>
 
@@ -234,17 +236,46 @@ div.submit button {
 	
 <script>
 	function check_ID() {
-		alert("아이디 중복확인");
-		/* let inputID = $('input[name="id"]');
+		// alert("아이디 중복확인");
+		let inputID = $('input[name="id"]');
 		if(!inputID.val()){
 			alert("아이디를 입력하세요");
 			inputID.focus();
-			return;	 */
+			return;
+		}
 	}
 		
-	/* function join_go(){
+	function join_go() {
+		
+		if (!pic_check()) {
+	        return;
+	    }
+		
+		let form = document.forms.join;
+		for(let element of form ){
+			//alert(element.name);
+			switch(element.name){
+				case "id":case "pwd":case "name":case "date":case "phone":case "address":case "email":case  "picture":
+					if(!element.value){
+						alert(element.name+"은 필수입니다.");					
+						if(element.name=="picture"){
+							element.click();
+						}else{
+							element.focus();
+						}					
+						return;
+					}
+					
+					if(element.name=="id" && element.value!=checkID){
+						alert("아이디 중복확인은 필수입니다.");
+						return;
+					}
+			}
+		}
+		
+		alert("안녕하세요!");
 		form.action="join";
 		form.method="post";
 		form.submit();
-	} */
+	}
 </script>

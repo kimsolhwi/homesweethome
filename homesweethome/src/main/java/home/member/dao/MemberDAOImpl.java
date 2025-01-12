@@ -10,20 +10,19 @@ import home.member.dto.MemberVO;
 
 public class MemberDAOImpl implements MemberDAO {
 
-	@Autowired
-	private SqlSession session;
-	public MemberDAOImpl(SqlSession session) {
-		this.session = session;
-	}
-	@Override
-	public MemberVO selectMemberByMid(String id) throws SQLException {
-		return session.selectOne("home.member.mapper.MemberMapper.selectMemberByMid", id);
-	}
+	
 	@Override
 	public List<MemberVO> selectList() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public MemberVO selectMemberByMid(String id) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public void insertMember(MemberVO member) throws SQLException {
 		// TODO Auto-generated method stub
@@ -39,6 +38,7 @@ public class MemberDAOImpl implements MemberDAO {
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 	
 	

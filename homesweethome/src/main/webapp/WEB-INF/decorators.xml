@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/WEB-INF/decorator">
+   
+   <decorator name="staff" page="decorator_staff.jsp">
+      <pattern>/staff/*</pattern>
+   </decorator>
+   
+   <decorator name="member" page="decorator_member.jsp">
+      <pattern>/member/*</pattern>
+   </decorator>
+   
+   <excludes>
+		<pattern>/module/*</pattern>
+		<pattern>/resources/*</pattern>				
+		<pattern>/reply/*</pattern>
+		<pattern>/pds/getFile</pattern>
+		<pattern>/member/getPicture</pattern>
+		<pattern>/summernote/*</pattern>
+		<pattern>/commons/sessionCheck</pattern>
+		
+		<pattern>/member/join</pattern>
+		<pattern>/member/login</pattern>
+		<pattern>/member/login/find/*</pattern>
+		<pattern>/member/main</pattern>
+		<pattern>/member/bmain</pattern>
+		<pattern>/member/mypage/deactivation/open_cancel</pattern>
+		<pattern>/member/mypage/adopt/open_animal</pattern>
+		
+		<pattern>/staff/smain</pattern>
+   </excludes>
+</decorators>

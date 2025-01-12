@@ -2,7 +2,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:c="http://www.springframework.org/schema/c"
-	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- member.picture -->
@@ -11,10 +10,15 @@
 		  c:value="${savePath.member.picture}" 		
 	/>
 	
-	<!-- Repository -->
+	<!-- summernote.image -->
+	<bean id="summernotePath"
+	      class="java.lang.String"
+	      c:value="${savePath.summernote.image}"
+	/>
+	
 	<bean id="MemberDAO"
-		  class="home.member.dao.MemberDAOImpl"
-		  c:session="sqlSession"
-		  />
-
+		  class="home.member.dao.MybatisMemberDAOImpl"
+		  c:session-ref="sqlSession"
+	/>
+	
 </beans>

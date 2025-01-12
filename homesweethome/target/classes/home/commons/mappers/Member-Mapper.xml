@@ -12,26 +12,26 @@
 	<select id="selectMemberByMid" parameterType="str"
 		resultType="home.member.dto.MemberVO">
 		select *
-		form member
+		from member
 		where mid = #{mid}
 	</select>
 
 	<insert id="insertMember" parameterType="member">
 		insert into
-		member(id, pwd, name, birth, sex, picture, phone, address, mail)
-		values(#{id}, #{pwd}, #{name}, #{birth}, #{sex}, #{picture}, #{phone}, #{address}, #{mail})
+		member(mid, pwd, name, birth, sex, picture, phone, address, email)
+		values(#{mid}, #{pwd}, #{name}, #{birth}, #{sex}, #{picture}, #{phone}, #{address}, #{email})
 	</insert>
 
 	<update id="updateMember" parameterType="member">
 		update member
 		set pwd = #{pwd}, phone = #{phone} address = #{address}, email = #{email}
-		where id = #{id}
+		where mid = #{mid}
 	</update>
 
 	<delete id="deleteMember" parameterType="str">
 		delete
 		from member
-		where id = #{id}
+		where mid = #{mid}
 	</delete>
 
 </mapper>
